@@ -8,13 +8,13 @@ os.system('cmd /c "netsh wlan show profile"')
 
 def available_networks():
     p = sub.Popen("netsh wlan show profile", shell=True, stdout=sub.PIPE, stderr=sub.PIPE).communicate()[0]
-    p = p.split("-------------")
-    print(p[1])
-
-available_networks()
+    a=p.decode("utf-8")
+    a = a.split("User profiles")
+    return a[1]
+     
 
 window = tk.Tk()
-window.geometry("300x100")
+window.geometry("500x500")
 window.title('Find Wify Password')
 
 text = "..."
@@ -26,6 +26,7 @@ def find_wify_password():
     a=a.split("Key Content            : ")
     b=a[1].split("\r\n")
     resul_entery.insert(0,b[0])
+    
 
 find_button = tk.Button(window,text='find',command=find_wify_password)
 result_lable = tk.Label(window,text=text)
@@ -41,5 +42,11 @@ resul_entery.grid(row=1, column=1)
 
 find_button.grid(row=2, column=1)
 result_lable.grid(row=1, column=1)
+
+#test start
+test_text = tk.Text(window,width= 40)
+test_text.insert('end', available_networks())
+test_text.grid(row=3, column=1)
+#test end
 
 window.mainloop()
