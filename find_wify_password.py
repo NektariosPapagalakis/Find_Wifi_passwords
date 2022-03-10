@@ -2,11 +2,10 @@ import subprocess as sub
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import os
+import pyperclip as pc
 
-#find the names of the available networks
-os.system('cmd /c "netsh wlan show profile"')
-
+BACKGROUND_COLOR = "#2C2C2C"
+SECOND_COLOR = "#5B5B5B"
 
 def available_networks():
     p = sub.Popen("netsh wlan show profile", shell=True, stdout=sub.PIPE, stderr=sub.PIPE).communicate()[0]
@@ -20,18 +19,24 @@ def available_networks():
         cc[c] = cc[c].replace("    ","")
         temp = cc[c].split(" : ")
         cc[c] = temp[1]
-        #c.replace("All User Profile     : ","")
     return cc
+
+def copy_password():
+    if (result_entery.get() == ""):
+        messagebox.showerror('error', 'You must find the password firs')
+    else:
+        pc.copy(result_entery.get())
      
 
 window = tk.Tk()
-window.geometry("500x500")
+window.geometry("500x300")
 window.title('Find Wify Password')
+window.configure(background=BACKGROUND_COLOR)
 
 text = "..."
 # find button
 def find_wify_password(): 
-    net_name = net_name_select.get()
+    net_name = seleted_network_name.get()
     if net_name == "Pick a Networck":
          messagebox.showerror('error', 'Select a network first')
     else:
@@ -41,24 +46,52 @@ def find_wify_password():
         b=a[1].split("\r\n")
         result_entery.insert(0,b[0])
 
+#Create Frames
+frame_name_select = tk.Frame(window,background=BACKGROUND_COLOR)
+frame_get_password = tk.Frame(window,background=BACKGROUND_COLOR)
+frame_buttons = tk.Frame(window,background=BACKGROUND_COLOR)
 
-find_button = tk.Button(window,text='find',command=find_wify_password)
-result_lable = tk.Label(window,text=text)
-
-tk.Label(window, text="Networks Name : ").grid(row=0)
-tk.Label(window, text="Networks Password : ").grid(row=1)
-
-
+#Name Select
+networck_name_label = tk.Label(frame_name_select, text="Networks Name : ", font=20, foreground="red", background=BACKGROUND_COLOR)
 networks_names_list = available_networks()
-net_name_select = ttk.Combobox(window, values=networks_names_list,width=27)
-net_name_select.set("Pick a Networck")
-net_name_select.grid(row=0, column=1)
+seleted_network_name = tk.StringVar(window)
+seleted_network_name.set("Select Network")
+network_name_select = tk.OptionMenu(frame_name_select, seleted_network_name, *networks_names_list)
+network_name_select.config(width=27,font=20,foreground="red",background=BACKGROUND_COLOR,highlightthickness=0,bg=SECOND_COLOR, fg="red")
+network_name_select.config(bg=SECOND_COLOR,fg="red")
+network_name_select["highlightthickness"]=0
+
+network_name_select["menu"].config(bg=SECOND_COLOR)
+
+#Result
+net_password_label =tk.Label(frame_get_password, text="Networks Password : ", font=20,foreground="red", background=BACKGROUND_COLOR)
+result_entery = tk.Entry(frame_get_password,width=27, font=20, background=SECOND_COLOR)
+
+#Buttons
+find_button = tk.Button(frame_buttons,text='Find',command=find_wify_password, width=20,foreground="red", background=SECOND_COLOR)
+copy_button = tk.Button(frame_buttons,text='Copy',command=copy_password, width=20,foreground="red", background=SECOND_COLOR)
+
+#Plece at Window
+frame_name_select.pack(pady=20)
+networck_name_label.pack(side=tk.LEFT)
+network_name_select.pack(side=tk.LEFT)
+
+frame_get_password.pack(pady=20)
+net_password_label.pack(side=tk.LEFT)
+result_entery.pack(side=tk.LEFT)
+
+frame_buttons.pack(pady=20)
+find_button.pack(pady=5)
+copy_button.pack(pady = 5)
 
 
-result_entery = tk.Entry(window,width=30)
-result_entery.grid(row=1, column=1)
 
-find_button.grid(row=2, column=1)
-result_lable.grid(row=1, column=1)
+
+
+#result_entery = tk.Entry(window,width=30)
+#result_entery.grid(row=1, column=1)
+
+#find_button.grid(row=2, column=1)
+#result_lable.grid(row=1, column=1)
 
 window.mainloop()
