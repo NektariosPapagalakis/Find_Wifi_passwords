@@ -1,6 +1,5 @@
 import subprocess as sub
 import tkinter as tk
-from tkinter import ttk
 from tkinter import messagebox
 import pyperclip as pc
 
@@ -8,25 +7,27 @@ BACKGROUND_COLOR = "#2C2C2C"
 SECOND_COLOR = "#5B5B5B"
 
 def available_networks():
-    p = sub.Popen("netsh wlan show profile", shell=True, stdout=sub.PIPE, stderr=sub.PIPE).communicate()[0]
-    a=p.decode("utf-8")
-    a = a.split("User profiles")
-    b = a[1].split("\r\n")
-    cc = []
-    for i in range(2,len(b)-2):
-        cc.append(b[i])
-    for c in range(len(cc)):
-        cc[c] = cc[c].replace("    ","")
-        temp = cc[c].split(" : ")
-        cc[c] = temp[1]
-    return cc
+    try:
+        p = sub.Popen("netsh wlan show profile", shell=True, stdout=sub.PIPE, stderr=sub.PIPE).communicate()[0]
+        a=p.decode("utf-8")
+        a = a.split("User profiles")
+        b = a[1].split("\r\n")
+        cc = []
+        for i in range(2,len(b)-2):
+            cc.append(b[i])
+        for c in range(len(cc)):
+            cc[c] = cc[c].replace("    ","")
+            temp = cc[c].split(" : ")
+            cc[c] = temp[1]
+        return cc
+    except:
+        return "Problem"
 
 def copy_password():
     if (result_entery.get() == ""):
         messagebox.showerror('error', 'You must find the password firs')
     else:
         pc.copy(result_entery.get())
-     
 
 window = tk.Tk()
 window.geometry("500x300")
@@ -44,6 +45,7 @@ def find_wify_password():
         a=p.decode("utf-8")
         a=a.split("Key Content            : ")
         b=a[1].split("\r\n")
+        result_entery.delete(0, 'end')
         result_entery.insert(0,b[0])
 
 #Create Frames
@@ -53,7 +55,12 @@ frame_buttons = tk.Frame(window,background=BACKGROUND_COLOR)
 
 #Name Select
 networck_name_label = tk.Label(frame_name_select, text="Networks Name : ", font=20, foreground="red", background=BACKGROUND_COLOR)
+
 networks_names_list = available_networks()
+if (networks_names_list == "Problem"):
+    messagebox.showerror('error', 'Something went wrong')
+    networks_names_list = ["---"]
+
 seleted_network_name = tk.StringVar(window)
 seleted_network_name.set("Select Network")
 network_name_select = tk.OptionMenu(frame_name_select, seleted_network_name, *networks_names_list)
@@ -84,14 +91,5 @@ frame_buttons.pack(pady=20)
 find_button.pack(pady=5)
 copy_button.pack(pady = 5)
 
-
-
-
-
-#result_entery = tk.Entry(window,width=30)
-#result_entery.grid(row=1, column=1)
-
-#find_button.grid(row=2, column=1)
-#result_lable.grid(row=1, column=1)
 
 window.mainloop()
