@@ -4,5 +4,5 @@ This is a simple python script that can be used to see the wifi passwords from t
   
 The wifi must be on in order to find the networks and their passwords
   
-Requirements :
-  1) The pyperclip libray
+Requirements in order to run the find_wify_password.py  file :
+  1) Install the pyperclip libray 
