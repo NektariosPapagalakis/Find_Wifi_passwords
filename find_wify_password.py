@@ -2,16 +2,10 @@ import subprocess as sub
 import tkinter as tk
 from tkinter import messagebox
 import pyperclip as pc
-import qrcode
-#!/usr/bin/env python3
 from pyqrcode import create
-from PIL import Image,  ImageTk
 
 BACKGROUND_COLOR = "#2C2C2C"
 SECOND_COLOR = "#5B5B5B"
-
-    
-    
 
 
 def available_networks():
@@ -52,7 +46,6 @@ def create_qr_code():
     xbm_image = tk.BitmapImage(data=qr.xbm(scale=6), )
     qr_label.config(image=xbm_image,background='white')
     window.geometry("500x600")
-    print("ff")
 
     
 
