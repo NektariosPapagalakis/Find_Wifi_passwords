@@ -9,6 +9,8 @@
   
   
 ## Start Screen
+  This is what you should see in your screen whene you run the program. Fist select one of the available networks and press the find button, if you want to copy the password you can by pressing the copy button.
+  
 ![Start Screen](https://github.com/NektariosPapagalakis/Find_Wifi_passwords/blob/main/read_me_img/start_screen.png)
 ## Final Screen
 ![Final Screen](https://github.com/NektariosPapagalakis/Find_Wifi_passwords/blob/main/read_me_img/final_screen.png)
