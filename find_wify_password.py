@@ -33,13 +33,13 @@ def copy_password():
 
 window = tk.Tk()
 window.geometry("500x300")
-window.title('Find Wify Password')
+window.title('Find Wifi Password')
 window.configure(background=BACKGROUND_COLOR)
 
 
 def create_qr_code():
     global dta
-    name_text = seleted_network_name.get()
+    name_text = selected_network_name.get()
     password_text = result_entery.get()
     qr = create('WIFI:S:'+name_text+';T:WPA;P:'+password_text+';;')
     global xbm_image
@@ -49,8 +49,8 @@ def create_qr_code():
 
     
 
-def find_wify_password(): 
-    net_name = seleted_network_name.get()
+def find_wifi_password(): 
+    net_name = selected_network_name.get()
     if net_name == "Select Network":
          messagebox.showerror('error', 'Select a network first')
     else:
@@ -70,16 +70,16 @@ frame_buttons = tk.Frame(window,background=BACKGROUND_COLOR)
 frame_qr = tk.Frame(window,background=BACKGROUND_COLOR)
 
 #Name Select
-networck_name_label = tk.Label(frame_name_select, text="Networks Name : ", font=20, foreground="red", background=BACKGROUND_COLOR)
+network_name_label = tk.Label(frame_name_select, text="Networks Name : ", font=20, foreground="red", background=BACKGROUND_COLOR)
 
 networks_names_list = available_networks()
 if (networks_names_list == "Problem"):
     messagebox.showerror('error', 'Something went wrong')
     networks_names_list = ["---"]
 
-seleted_network_name = tk.StringVar(window)
-seleted_network_name.set("Select Network")
-network_name_select = tk.OptionMenu(frame_name_select, seleted_network_name, *networks_names_list)
+selected_network_name = tk.StringVar(window)
+selected_network_name.set("Select Network")
+network_name_select = tk.OptionMenu(frame_name_select, selected_network_name, *networks_names_list)
 network_name_select.config(width=27,font=20,foreground="red",background=BACKGROUND_COLOR,highlightthickness=0,bg=SECOND_COLOR, fg="red")
 network_name_select.config(bg=SECOND_COLOR,fg="red")
 network_name_select["highlightthickness"]=0
@@ -91,7 +91,7 @@ net_password_label =tk.Label(frame_get_password, text="Networks Password : ", fo
 result_entery = tk.Entry(frame_get_password,width=27, font=20, background=SECOND_COLOR)
 
 #Buttons
-find_button = tk.Button(frame_buttons,text='Find',command=find_wify_password, width=20,foreground="red", background=SECOND_COLOR)
+find_button = tk.Button(frame_buttons,text='Find',command=find_wifi_password, width=20,foreground="red", background=SECOND_COLOR)
 copy_button = tk.Button(frame_buttons,text='Copy',command=copy_password, width=20,foreground="red", background=SECOND_COLOR)
 
 #QR
@@ -101,7 +101,7 @@ qr_label = tk.Label(frame_qr,background=BACKGROUND_COLOR)
 #Plece at Window
 
 frame_name_select.pack(pady=20)
-networck_name_label.pack(side=tk.LEFT)
+network_name_label.pack(side=tk.LEFT)
 network_name_select.pack(side=tk.LEFT)
 
 frame_get_password.pack(pady=20)
