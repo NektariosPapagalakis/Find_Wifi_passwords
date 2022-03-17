@@ -31,6 +31,7 @@ def copy_password():
     else:
         pc.copy(result_entery.get())
 
+
 window = tk.Tk()
 window.geometry("500x300")
 window.title('Find Wifi Password')
@@ -47,7 +48,8 @@ def create_qr_code():
     qr_label.config(image=xbm_image,background='white')
     window.geometry("500x600")
 
-    
+def connect():
+    print("connect")
 
 def find_wifi_password(): 
     net_name = selected_network_name.get()
@@ -93,6 +95,7 @@ result_entery = tk.Entry(frame_get_password,width=27, font=20, background=SECOND
 #Buttons
 find_button = tk.Button(frame_buttons,text='Find',command=find_wifi_password, width=20,foreground="red", background=SECOND_COLOR)
 copy_button = tk.Button(frame_buttons,text='Copy',command=copy_password, width=20,foreground="red", background=SECOND_COLOR)
+connect_button = tk.Button(frame_buttons,text='Connect',command=connect, width=20,foreground="red", background=SECOND_COLOR)
 
 #QR
 qr_label = tk.Label(frame_qr,background=BACKGROUND_COLOR)
@@ -109,8 +112,9 @@ net_password_label.pack(side=tk.LEFT)
 result_entery.pack(side=tk.LEFT)
 
 frame_buttons.pack(pady=20)
-find_button.pack(pady=5)
-copy_button.pack(pady = 5)
+find_button.grid(pady=(5,5),padx=(5,5),row = 0, column= 0,columnspan=2,sticky="ew")
+copy_button.grid(pady = (5,5),padx=(5,5),row = 1, column= 0)
+connect_button.grid(pady = (5,5),padx=(5,5),row = 1, column= 1)
 
 frame_qr.pack(pady=20)
 qr_label.pack()
