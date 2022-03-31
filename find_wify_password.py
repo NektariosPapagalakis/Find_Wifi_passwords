@@ -313,13 +313,10 @@ result_entery = tk.Entry(frame_get_password,width=27, font=20, background=SECOND
 find_button = tk.Button(frame_buttons,text='Find',command=find_wifi_password, width=20,foreground="red", background=SECOND_COLOR)
 copy_button = tk.Button(frame_buttons,text='Copy',command=copy_password, width=20,foreground="red", background=SECOND_COLOR)
 
-
 #QR
 qr_label = tk.Label(frame_qr,background=BACKGROUND_COLOR)
 
-
 #Plece at Window
-
 frame_name_select.pack(pady=20)
 network_name_label.pack(side=tk.LEFT)
 network_name_select.pack(side=tk.LEFT)
