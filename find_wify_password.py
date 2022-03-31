@@ -124,7 +124,6 @@ class App(customtkinter.CTk):
                     if( a=="Connection request was completed successfully.\r\n"):
                         messagebox.showinfo("Connected", "Connected")
                     else:
-                        print(a)
                         messagebox.showerror('error', '5. Connection failed, something went wrong')
                 except:
                     p = sub.Popen("netsh wlan connect ssid="+ssid+" name="+name, shell=True, stdout=sub.PIPE, stderr=sub.PIPE).communicate()[0]
