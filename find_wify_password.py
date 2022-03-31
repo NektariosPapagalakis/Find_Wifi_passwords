@@ -1,9 +1,7 @@
 import os
-from posixpath import split
 import subprocess as sub
 import tkinter as tk
 from tkinter import messagebox
-from webbrowser import get
 import pyperclip as pc
 from pyqrcode import create
 
